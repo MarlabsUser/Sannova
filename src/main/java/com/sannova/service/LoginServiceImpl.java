@@ -26,6 +26,14 @@ public class LoginServiceImpl implements LoginService{
     public LoginResponse login(LoginRequest request) {
         Optional<User> userDetails=userRepository.findByUserName(request.getFirstname());
         if(!userDetails.isPresent()){
+            throw SannovaExceptionHandler.builder().message(INVALID_LOGIN_CRIDENTIAL_MESSAGE).build();
+        }
+
+        String decodePassword= new String(Base64.getDecoder().decode(userDetails.get().getPassword().getBytes()));
+        if(!StringUtils.equals(request.getPassword(),decodePassword)){
+            throw SannovaExceptionHandler.builder().message(INVALID_LOGIN_CRIDENTIAL_MESSAGE).build();
+        }
+        if(!userDetails.isPresent()){
             throw SannovaExceptionHandler.builder()
                     .message("User details not found").status(HttpStatus.NOT_FOUND).build();
         }
