@@ -52,7 +52,7 @@ public class StudyTypesImpl implements StudyType{
                 TemplateDetails templateDetails=
                         TemplateDetails.builder()
                         .templateName(file.getOriginalFilename())
-                        //.uploadedBy()
+                        .uploadedBy("Admin")
                         .data(file.getBytes())
                         .templateType(file.getContentType())
                         .cart(studyType.get())
