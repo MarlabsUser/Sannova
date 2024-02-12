@@ -42,4 +42,8 @@ public class TemplateDetails {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name="study_id", nullable=false)
+    private StudyTypes cart;
+
 }

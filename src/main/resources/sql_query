@@ -1,3 +1,5 @@
+create database sannova;
+
 INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":true, "form_selection":true , "study_reconcillation":false}', 'admin');
 INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":false, "form_selection":true , "study_reconcillation":false}', 'default');
 INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":false, "form_selection":false , "study_reconcillation":true}', 'qe');
