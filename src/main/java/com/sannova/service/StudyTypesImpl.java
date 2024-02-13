@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StudyTypesImpl implements StudyType{
 
-    private StudyTypesRepository studyTypesRepository;
-    private TemplateDetailsRepository templateDetailsRepository;
+    private final StudyTypesRepository studyTypesRepository;
+    private final TemplateDetailsRepository templateDetailsRepository;
 
     @Override
     public List<StudyTypeListResponse> getStudyTypes() {

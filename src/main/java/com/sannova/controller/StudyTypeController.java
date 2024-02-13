@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 @RequiredArgsConstructor
 public class StudyTypeController {
 
-    private StudyType studyType;
+    private final StudyType studyType;
     @GetMapping(value = URL_STUDY_TYPES, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StudyTypeListResponse>> getStudyTypes(){
         return ResponseEntity.ok(studyType.getStudyTypes());

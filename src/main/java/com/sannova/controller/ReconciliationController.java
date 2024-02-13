@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.sannova.util.URLDetails.URL_LOGIN;
+import static com.sannova.util.URLDetails.URL_RECONSILIATION;
 
 @RestController
 @RequiredArgsConstructor
 public class ReconciliationController {
 
-    private ReconciliationService service;
+    private final ReconciliationService service;
 
-    @PostMapping(value = URL_LOGIN, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = URL_RECONSILIATION, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getReconciliationDetails(@RequestBody ReconciliationRequestDto request){
         return ResponseEntity.ok(service.getReconsiliationDetails(request.getSearch(),request.getFromDate(),request.getToDate()));

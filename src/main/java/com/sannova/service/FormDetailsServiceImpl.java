@@ -10,9 +10,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FormDetailsServiceImpl implements  FormDetailsService {
+public class FormDetailsServiceImpl implements FormDetailsService{
 
-    private  FormPrintRepository formPrintRepository;
+    private final FormPrintRepository formPrintRepository;
 
     @Override
     public String getStudyNumber() {
@@ -20,7 +20,7 @@ public class FormDetailsServiceImpl implements  FormDetailsService {
         List<FormPrintDetails> formPrintDetails = formPrintRepository.findAll();
         Integer Count = formPrintDetails.size();
         Integer Number=Count+1;
-        String studyNumber=studyName+Number;
-        return studyNumber;
+       // String studyNumber=studyName+Number;
+        return studyName;
     }
 }
