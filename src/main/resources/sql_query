@@ -7,3 +7,5 @@ INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":
 INSERT INTO `user` (password, user_name, role_id) VALUES('QWRtaW4=', 'admin', 1);
 INSERT INTO `user` (password, user_name, role_id) VALUES('ZGVmYXVsdA==', 'default', 2);
 INSERT INTO `user` (password, user_name, role_id) VALUES('cWU=', 'qe', 3);
+
+INSERT INTO study_types (status, study_name) VALUES(1, 'Bio Analytical'),(1, 'Analytical'),(1, 'Stability study'),(1, 'Extractable');
