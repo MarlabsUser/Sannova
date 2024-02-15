@@ -46,5 +46,5 @@ public class FormPrintDetails {
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private TemplateDetails templateDetails;
-
+    
 }

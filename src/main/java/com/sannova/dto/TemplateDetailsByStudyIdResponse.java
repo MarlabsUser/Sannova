@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +27,9 @@ public class TemplateDetailsByStudyIdResponse {
     @JsonProperty(value = "uploaded_by")
     private String uploadedBy;
     @JsonProperty(value = "created_date")
-    private LocalDateTime createdDate;
+    private String createdDate;
     @JsonProperty(value = "updatedDate")
-    private LocalDateTime updated_date;
+    private String updated_date;
 
     public static List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyIdResponse(StudyTypes studyTypes){
         return studyTypes.getTemplateDetails().stream()
@@ -37,8 +38,8 @@ public class TemplateDetailsByStudyIdResponse {
                             .studyTypeId(studyTypes.getId())
                             .templateName(value.getTemplateName())
                             .uploadedBy(value.getUploadedBy())
-                            .createdDate(value.getCreatedAt())
-                            .updated_date(value.getUpdatedAt())
+                            .createdDate(value.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
+                            .updated_date(value.getUpdatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
                             .build()).collect(Collectors.toList());
     }
 

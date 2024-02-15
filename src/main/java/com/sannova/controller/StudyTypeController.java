@@ -1,5 +1,6 @@
 package com.sannova.controller;
 
+import com.sannova.dto.DeleteTemplateDto;
 import com.sannova.dto.StudyTypeListResponse;
 import com.sannova.dto.TemplateDetailsByStudyIdResponse;
 import com.sannova.service.StudyType;
@@ -38,10 +39,10 @@ public class StudyTypeController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping(value =URL_DELETE_TEMPLATE_BY_TEMPLATE_ID, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteTemplate(@PathVariable Integer template_id) throws IOException {
-        studyType.deleteTemplate(template_id);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @DeleteMapping(value =URL_DELETE_TEMPLATE_BY_TEMPLATE_ID)
+    public ResponseEntity deleteTemplate(@RequestParam ("ids") List<Integer> template_ids) {
+        studyType.deleteTemplate(template_ids);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

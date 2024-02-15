@@ -7,17 +7,11 @@ import com.sannova.model.TemplateDetails;
 import com.sannova.repository.StudyTypesRepository;
 import com.sannova.repository.TemplateDetailsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +31,7 @@ public class StudyTypesImpl implements StudyType{
 
     @Override
     public List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(Integer study_id) {
-        Optional<StudyTypes> studyType=studyTypesRepository.findById(study_id);
+        Optional<StudyTypes> studyType=studyTypesRepository.findByIdAndTemplateDetailsStatus(study_id,true);
         if(studyType.isPresent()){
             return TemplateDetailsByStudyIdResponse.getTemplateDetailsByStudyIdResponse(studyType.get());
         }
@@ -47,22 +41,28 @@ public class StudyTypesImpl implements StudyType{
     @Override
     public void createTemplate(List<MultipartFile> files,Integer studyId) throws IOException {
         Optional<StudyTypes> studyType=studyTypesRepository.findById(studyId);
+        List<TemplateDetails> templateDetailsList=new ArrayList<>();
         if(studyType.isPresent()){
             for (MultipartFile file:files) {
-                TemplateDetails templateDetails=
+                templateDetailsList.add(
                         TemplateDetails.builder()
                         .templateName(file.getOriginalFilename())
                         .uploadedBy("Admin")
                         .data(file.getBytes())
                         .templateType(file.getContentType())
-                        .cart(studyType.get())
-                        .build();
+                        .studyTypes(studyType.get())
+                        .status(true)
+                        .build());
+
             }
         }
+        templateDetailsRepository.saveAll(templateDetailsList);
     }
 
     @Override
-    public void deleteTemplate(Integer templateId) {
-        templateDetailsRepository.deleteById(templateId);
+    public void deleteTemplate(List<Integer> templateIds) {
+        List<TemplateDetails> templateDetails=templateDetailsRepository.findAllById(templateIds);
+        List<TemplateDetails> templateDetailsStatusChange=templateDetails.stream().map(v->{ v.setStatus(true); return v;}).collect(Collectors.toList());
+        templateDetailsRepository.deleteAll(templateDetailsStatusChange);
     }
 }

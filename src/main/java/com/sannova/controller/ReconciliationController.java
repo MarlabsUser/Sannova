@@ -20,8 +20,7 @@ public class ReconciliationController {
 
     private final ReconciliationService service;
 
-    @PostMapping(value = URL_RECONSILIATION, consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = URL_RECONSILIATION)
     public ResponseEntity getReconciliationDetails(@RequestBody ReconciliationRequestDto request){
         return ResponseEntity.ok(service.getReconsiliationDetails(request.getSearch(),request.getFromDate(),request.getToDate()));
     }

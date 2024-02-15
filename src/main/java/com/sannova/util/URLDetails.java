@@ -10,7 +10,7 @@ public class URLDetails {
     public static final String URL_TEMPLATE_DETAILS_BY_ID=URL_TEMPLATE_DETAILS+"/{study_id}";
     public static final String URL_STUDY_NUMBER=URL_BASE+"/study_number";
     public static final String URL_UPLOAD_TEMPLATE=URL_BASE+"/upload_template";
-    public static final String URL_DELETE_TEMPLATE_BY_TEMPLATE_ID=URL_BASE+"/delete_template/{template_id}";
+    public static final String URL_DELETE_TEMPLATE_BY_TEMPLATE_ID=URL_BASE+"/delete_template";
     public static final String URL_RECONSILIATION = URL_BASE +"/reconsiliation";
 
 

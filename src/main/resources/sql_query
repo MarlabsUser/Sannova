@@ -1,11 +1,8 @@
 create database sannova;
 
-INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":true, "form_selection":true , "study_reconcillation":false}', 'admin');
-INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":false, "form_selection":true , "study_reconcillation":false}', 'default');
-INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":false, "form_selection":false , "study_reconcillation":true}', 'qe');
+INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":true, "form_selection":true , "study_reconcillation":false}', 'admin'),
+('{"document_template_upload":false, "form_selection":true , "study_reconcillation":false}', 'default'),('{"document_template_upload":false, "form_selection":false , "study_reconcillation":true}', 'qe');
 
-INSERT INTO `user` (password, user_name, role_id) VALUES('QWRtaW4=', 'admin', 1);
-INSERT INTO `user` (password, user_name, role_id) VALUES('ZGVmYXVsdA==', 'default', 2);
-INSERT INTO `user` (password, user_name, role_id) VALUES('cWU=', 'qe', 3);
+INSERT INTO `user` (password, user_name, role_id) VALUES('QWRtaW4=', 'admin', 1),('ZGVmYXVsdA==', 'default', 2),('cWU=', 'qe', 3);
 
 INSERT INTO study_types (status, study_name) VALUES(1, 'Bio Analytical'),(1, 'Analytical'),(1, 'Stability study'),(1, 'Extractable');

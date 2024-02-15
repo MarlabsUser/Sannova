@@ -15,5 +15,5 @@ public interface StudyType {
 
     void createTemplate(List<MultipartFile> files,Integer studyId) throws IOException;
 
-    void deleteTemplate(Integer studyId);
+    void deleteTemplate(List<Integer> studyId);
 }
