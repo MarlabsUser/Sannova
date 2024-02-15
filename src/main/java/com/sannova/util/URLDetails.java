@@ -13,6 +13,8 @@ public class URLDetails {
     public static final String URL_DELETE_TEMPLATE_BY_TEMPLATE_ID=URL_BASE+"/delete_template";
     public static final String URL_RECONSILIATION = URL_BASE +"/reconsiliation";
 
+    public static final String URL_FORM_CONFIRMATION_DETAILS = URL_BASE +"/form_confirmation_details";
+
 
 
 }
