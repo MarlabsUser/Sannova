@@ -1,16 +1,19 @@
 package com.sannova.service;
 
-import com.sannova.dto.FormConfirmationDetails;
+import com.sannova.dto.FormConfirmationRequest;
 import com.sannova.model.FormPrintDetails;
 import com.sannova.model.StudyTypes;
 import com.sannova.model.TemplateDetails;
 import com.sannova.repository.FormPrintRepository;
 import com.sannova.repository.StudyTypesRepository;
 import com.sannova.repository.TemplateDetailsRepository;
+import com.sannova.util.ZipConvert;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,17 +37,41 @@ public class FormDetailsServiceImpl implements FormDetailsService{
     }
 
     @Override
-    public String addFormConfirmationDetails(FormConfirmationDetails request) {
+    public String addFormConfirmationDetails(FormConfirmationRequest request) throws IOException {
         Optional<StudyTypes> studyTypes= studyTypesRepository.findById(request.getStudyId());
-        if(studyTypes.isPresent()){
-            StudyTypes studyTypes1=   studyTypes.get();
-            FormPrintDetails formPrintDetails= new FormPrintDetails();
-            formPrintDetails.setStudyId(studyTypes1);
-            formPrintDetails.setCreatedAt(LocalDateTime.now());
+        List<FormPrintDetails> formPrintDetailsList=new ArrayList<>();
+        for(Integer studyTypeDetailsId :request.getStudyTypeDetailsId()){
+            Optional<TemplateDetails> templateDetails=templateDetailsRepository.findById(studyTypeDetailsId);
+            if(templateDetails.isPresent()){
+                TemplateDetails templateDetails1=templateDetails.get();
+                if(studyTypes.isPresent()){
+                    StudyTypes studyTypes1=   studyTypes.get();
+                    FormPrintDetails formPrintDetails= new FormPrintDetails();
+                    formPrintDetails.setStudyId(studyTypes1);
+                    formPrintDetails.setCreatedAt(LocalDateTime.now());
+                    formPrintDetails.setTemplateDetails(templateDetails1);
+                    formPrintDetails.setNumberOfFormsCount(request.getFormCount());
+                    formPrintDetails.setPrintBy(request.getUsername());
+                    formPrintDetails.setUpdatedAt(LocalDateTime.now());
+                   formPrintDetailsList.add(formPrintDetails);
+
+                }
+
+
+            }
 
         }
+      List<FormPrintDetails> formPrintDetails= formPrintRepository.saveAll(formPrintDetailsList);
+        List<byte[]> bytes= new ArrayList<>();
+        for(FormPrintDetails formPrintDetails1:formPrintDetails){
+            byte[] bytes1=formPrintDetails1.getTemplateDetails().getData();
+            bytes.add(bytes1);
+        }
+        String filename =request.getStudyNumber();
+        ZipConvert.zipBytes(filename,bytes);
 
 
-        return null;
+
+        return "Download Successfully ";
     }
 }

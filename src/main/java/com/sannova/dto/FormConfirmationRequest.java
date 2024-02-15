@@ -10,13 +10,15 @@ import java.util.List;
 
 @Builder
 @Data
-public class FormConfirmationDetails {
+public class FormConfirmationRequest {
 
  private String studyNumber;
  private Integer studyId;
 
  private List<Integer> studyTypeDetailsId;
   private Integer formCount;
+
+  private  String username;
 
 
 
