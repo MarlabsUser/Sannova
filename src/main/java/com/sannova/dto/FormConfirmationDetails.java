@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class StudyNumberResponse {
+public class FormConfirmationDetails {
 
     @JsonProperty(value = "study_name")
     private String number;
