@@ -1,6 +1,8 @@
 package com.sannova.service;
 
 import com.sannova.dto.FormConfirmationRequest;
+import com.sannova.dto.FromTemplateDetailsDto;
+import com.sannova.dto.ZipFormattedFiles;
 import com.sannova.model.FormPrintDetails;
 import com.sannova.model.StudyTypes;
 import com.sannova.model.TemplateDetails;
@@ -9,13 +11,22 @@ import com.sannova.repository.StudyTypesRepository;
 import com.sannova.repository.TemplateDetailsRepository;
 import com.sannova.util.ZipConvert;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,11 +48,11 @@ public class FormDetailsServiceImpl implements FormDetailsService{
     }
 
     @Override
-    public String addFormConfirmationDetails(FormConfirmationRequest request) throws IOException {
+    public byte[] addFormConfirmationDetails(FormConfirmationRequest request) throws IOException {
         Optional<StudyTypes> studyTypes= studyTypesRepository.findById(request.getStudyId());
         List<FormPrintDetails> formPrintDetailsList=new ArrayList<>();
-        for(Integer studyTypeDetailsId :request.getStudyTypeDetailsId()){
-            Optional<TemplateDetails> templateDetails=templateDetailsRepository.findById(studyTypeDetailsId);
+        for(FromTemplateDetailsDto studyTypeDetailsId :request.getStudyTypeDetailsId()){
+            Optional<TemplateDetails> templateDetails=templateDetailsRepository.findById(studyTypeDetailsId.getTemplateId());
             if(templateDetails.isPresent()){
                 TemplateDetails templateDetails1=templateDetails.get();
                 if(studyTypes.isPresent()){
@@ -50,7 +61,7 @@ public class FormDetailsServiceImpl implements FormDetailsService{
                     formPrintDetails.setStudyId(studyTypes1);
                     formPrintDetails.setCreatedAt(LocalDateTime.now());
                     formPrintDetails.setTemplateDetails(templateDetails1);
-                    formPrintDetails.setNumberOfFormsCount(request.getFormCount());
+                    formPrintDetails.setNumberOfFormsCount(studyTypeDetailsId.getFormCount());
                     formPrintDetails.setPrintBy(request.getUsername());
                     formPrintDetails.setUpdatedAt(LocalDateTime.now());
                    formPrintDetailsList.add(formPrintDetails);
@@ -62,16 +73,7 @@ public class FormDetailsServiceImpl implements FormDetailsService{
 
         }
       List<FormPrintDetails> formPrintDetails= formPrintRepository.saveAll(formPrintDetailsList);
-        List<byte[]> bytes= new ArrayList<>();
-        for(FormPrintDetails formPrintDetails1:formPrintDetails){
-            byte[] bytes1=formPrintDetails1.getTemplateDetails().getData();
-            bytes.add(bytes1);
-        }
-        String filename =request.getStudyNumber();
-        ZipConvert.zipBytes(filename,bytes);
-
-
-
-        return "Download Successfully ";
+      List<ZipFormattedFiles> zipFormattedFiles=formPrintDetails.stream().map(v->ZipConvert.formattedZipArrayOfFiles(v.getTemplateDetails().getTemplateName(), v.getTemplateDetails().getData())).collect(Collectors.toList());
+      return ZipConvert.zipBytes(zipFormattedFiles);
     }
 }

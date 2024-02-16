@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface FormDetailsService {
     String getStudyNumber();
 
-    String addFormConfirmationDetails(FormConfirmationRequest request) throws IOException;
+    byte[] addFormConfirmationDetails(FormConfirmationRequest request) throws IOException;
 }
