@@ -2,6 +2,7 @@ package com.sannova.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sannova.model.StudyTypes;
+import com.sannova.model.TemplateDetails;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,16 +32,17 @@ public class TemplateDetailsByStudyIdResponse {
     @JsonProperty(value = "updatedDate")
     private String updated_date;
 
-    public static List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyIdResponse(StudyTypes studyTypes){
-        return studyTypes.getTemplateDetails().stream()
+    public static List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyIdResponse(List<TemplateDetails> templateDetails,Integer studyId){
+        return templateDetails.stream()
                 .map(value-> TemplateDetailsByStudyIdResponse.builder()
                             .id(value.getId())
-                            .studyTypeId(studyTypes.getId())
+                            .studyTypeId(studyId)
                             .templateName(value.getTemplateName())
                             .uploadedBy(value.getUploadedBy())
                             .createdDate(value.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
                             .updated_date(value.getUpdatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
-                            .build()).collect(Collectors.toList());
+                            .build())
+                .collect(Collectors.toList());
     }
 
 }

@@ -6,14 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReconciliationRequestDto {
 
-    @JsonProperty("firstname")
-    private String search;
+    @JsonProperty("serial_number")
+    private String serialNumber;
     @JsonProperty("from_date")
     private String fromDate;
     @JsonProperty("to-date")

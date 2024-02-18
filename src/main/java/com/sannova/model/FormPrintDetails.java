@@ -35,11 +35,6 @@ public class FormPrintDetails {
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
-
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private StudyTypes studyId;
 

@@ -11,17 +11,8 @@ import com.sannova.repository.StudyTypesRepository;
 import com.sannova.repository.TemplateDetailsRepository;
 import com.sannova.util.ZipConvert;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,18 +50,12 @@ public class FormDetailsServiceImpl implements FormDetailsService{
                     StudyTypes studyTypes1=   studyTypes.get();
                     FormPrintDetails formPrintDetails= new FormPrintDetails();
                     formPrintDetails.setStudyId(studyTypes1);
-                    formPrintDetails.setCreatedAt(LocalDateTime.now());
                     formPrintDetails.setTemplateDetails(templateDetails1);
                     formPrintDetails.setNumberOfFormsCount(studyTypeDetailsId.getFormCount());
                     formPrintDetails.setPrintBy(request.getUsername());
-                    formPrintDetails.setUpdatedAt(LocalDateTime.now());
                    formPrintDetailsList.add(formPrintDetails);
-
                 }
-
-
             }
-
         }
       List<FormPrintDetails> formPrintDetails= formPrintRepository.saveAll(formPrintDetailsList);
       List<ZipFormattedFiles> zipFormattedFiles=formPrintDetails.stream().map(v->ZipConvert.formattedZipArrayOfFiles(v.getTemplateDetails().getTemplateName(), v.getTemplateDetails().getData())).collect(Collectors.toList());

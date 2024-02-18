@@ -31,9 +31,9 @@ public class StudyTypesImpl implements StudyType{
 
     @Override
     public List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(Integer study_id) {
-        Optional<StudyTypes> studyType=studyTypesRepository.findByIdAndTemplateDetailsStatus(study_id,true);
-        if(studyType.isPresent()){
-            return TemplateDetailsByStudyIdResponse.getTemplateDetailsByStudyIdResponse(studyType.get());
+        List<TemplateDetails> templateDetailsList=templateDetailsRepository.findByStatusAndStudyTypesId(true,study_id);
+        if(templateDetailsList !=null && !templateDetailsList.isEmpty()){
+            return TemplateDetailsByStudyIdResponse.getTemplateDetailsByStudyIdResponse(templateDetailsList,study_id);
         }
         return null;
     }
@@ -62,7 +62,11 @@ public class StudyTypesImpl implements StudyType{
     @Override
     public void deleteTemplate(List<Integer> templateIds) {
         List<TemplateDetails> templateDetails=templateDetailsRepository.findAllById(templateIds);
-        List<TemplateDetails> templateDetailsStatusChange=templateDetails.stream().map(v->{ v.setStatus(true); return v;}).collect(Collectors.toList());
-        templateDetailsRepository.deleteAll(templateDetailsStatusChange);
+        List<TemplateDetails> templateDetailsStatusChange=templateDetails.stream()
+                .map(v->{
+                    v.setStatus(false);
+                    return v;
+                }).collect(Collectors.toList());
+        templateDetailsRepository.saveAll(templateDetailsStatusChange);
     }
 }
