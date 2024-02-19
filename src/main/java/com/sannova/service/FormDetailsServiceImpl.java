@@ -30,7 +30,7 @@ public class FormDetailsServiceImpl implements FormDetailsService{
     @Override
     public String getStudyNumber() {
         String studyName = "SV";
-        String date = String.valueOf(LocalDateTime.now().getYear()).substring(2);
+        String date = String.valueOf(LocalDateTime.now().getYear());
         List<FormPrintDetails> formPrintDetails = formPrintRepository.findAll();
         Integer Count = formPrintDetails.size();
         Integer Number=Count+1;
@@ -49,6 +49,7 @@ public class FormDetailsServiceImpl implements FormDetailsService{
                 if(studyTypes.isPresent()){
                     StudyTypes studyTypes1=   studyTypes.get();
                     FormPrintDetails formPrintDetails= new FormPrintDetails();
+                    formPrintDetails.setStudyName(request.getStudyNumber());
                     formPrintDetails.setStudyId(studyTypes1);
                     formPrintDetails.setTemplateDetails(templateDetails1);
                     formPrintDetails.setNumberOfFormsCount(studyTypeDetailsId.getFormCount());

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -31,8 +32,8 @@ public class FormPrintDetails {
     @Column(name = "print_by")
     private String printBy;
 
-    @Column(name = "created_at", nullable = false)
-    @CreatedDate
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
     private LocalDateTime createdAt;
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
