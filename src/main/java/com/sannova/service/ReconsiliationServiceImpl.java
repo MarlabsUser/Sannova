@@ -1,23 +1,33 @@
 package com.sannova.service;
 
 import com.sannova.dto.ReconciliationResponseDto;
+import com.sannova.dto.ZipFormattedFiles;
 import com.sannova.model.FormPrintDetails;
+import com.sannova.model.FormPrintDetailsNew;
+import com.sannova.repository.FormPrintNewRepository;
 import com.sannova.repository.FormPrintRepository;
+import com.sannova.repository.TemplateDetailsRepository;
+import com.sannova.util.ZipConvert;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ReconsiliationServiceImpl implements ReconciliationService{
     private final FormPrintRepository formPrintRepository;
+    private final TemplateDetailsRepository templateDetailsRepository;
+
+    private final FormPrintNewRepository formPrintNewRepository;
     @Override
     public List<ReconciliationResponseDto> getReconsiliationDetails(String serialNumber,
                                                                     String FromDate,
@@ -28,7 +38,10 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
             }else{
-                //will see
+                List<FormPrintDetailsNew> formPrintDetails= formPrintNewRepository.findByStudyName(serialNumber);
+                List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
+                return reconciliationResponseDtos;
+
             }
         }else if(FromDate!=null && ToDate != null){
             LocalDateTime requestFromDate=LocalDate.parse(FromDate,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).atStartOfDay();
@@ -38,8 +51,21 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
                 List<FormPrintDetails> formPrintDetails=formPrintRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(requestFromDate,requestToDate);
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
+            }else{
+                List<FormPrintDetailsNew> formPrintDetails=formPrintNewRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(requestFromDate,requestToDate);
+                List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
+                return reconciliationResponseDtos;
             }
         }
         return new ArrayList<>();
     }
+
+    @Override
+    public byte[] printReconsiliationDetails(List<ReconciliationResponseDto> reconciliationResponseDtos) throws IOException {
+        List<ZipFormattedFiles> zipFormattedFiles=reconciliationResponseDtos.stream().map(v-> ZipConvert.formattedZipArrayOfFiles(v.getStudyNumber()+"/"+v.getFormTitle(),
+                        templateDetailsRepository.findById(v.getTemplateId()).get().getData()))
+                .collect(Collectors.toList());
+
+        return ZipConvert.zipBytes(zipFormattedFiles);
+        }
 }
