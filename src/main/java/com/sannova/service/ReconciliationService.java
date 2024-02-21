@@ -12,4 +12,5 @@ public interface ReconciliationService {
     byte[] printReconsiliationDetails(List<ReconciliationResponseDto> reconciliationResponseDtos) throws IOException;
 
 
+    byte[] getReconciliationDetailsDownload(List<ReconciliationResponseDto> request) throws IOException;
 }
