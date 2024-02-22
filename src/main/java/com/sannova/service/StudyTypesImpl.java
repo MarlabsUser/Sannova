@@ -30,10 +30,10 @@ public class StudyTypesImpl implements StudyType{
     }
 
     @Override
-    public List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(Integer study_id) {
-        List<TemplateDetails> templateDetailsList=templateDetailsRepository.findByStatusAndStudyTypesId(true,study_id);
+    public List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(List<Integer> study_id) {
+        List<TemplateDetails> templateDetailsList=templateDetailsRepository.findByStatusAndStudyTypesIdIn(true,study_id);
         if(templateDetailsList !=null && !templateDetailsList.isEmpty()){
-            return TemplateDetailsByStudyIdResponse.getTemplateDetailsByStudyIdResponse(templateDetailsList,study_id);
+            return TemplateDetailsByStudyIdResponse.getTemplateDetailsByStudyIdResponse(templateDetailsList);
         }
         return null;
     }

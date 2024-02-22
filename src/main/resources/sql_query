@@ -1,7 +1,8 @@
 create database sannova;
 
-INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":true, "form_selection":true , "study_reconcillation":false}', 'admin'),
-('{"document_template_upload":false, "form_selection":true , "study_reconcillation":false}', 'default'),('{"document_template_upload":false, "form_selection":false , "study_reconcillation":true}', 'qe');
+
+INSERT INTO role (authorization, role_name) VALUES('{"document_template_upload":true,"view_template":true,"form_selection":false , "study_reconcillation":false}', 'admin'),
+('{"document_template_upload":false, "form_selection":true ,"view_template":false, "study_reconcillation":false}', 'default'),('{"document_template_upload":false,"view_template":false, "form_selection":false , "study_reconcillation":true}', 'qe');
 
 INSERT INTO `user` (password, user_name, role_id) VALUES('QWRtaW4=', 'admin', 1),('ZGVmYXVsdA==', 'default', 2),('cWU=', 'qe', 3);
 

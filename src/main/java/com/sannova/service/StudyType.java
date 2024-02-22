@@ -11,7 +11,7 @@ public interface StudyType {
 
     List<StudyTypeListResponse> getStudyTypes();
 
-    List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(Integer study_id);
+    List<TemplateDetailsByStudyIdResponse> getTemplateDetailsByStudyId(List<Integer> study_id);
 
     void createTemplate(List<MultipartFile> files,Integer studyId) throws IOException;
 

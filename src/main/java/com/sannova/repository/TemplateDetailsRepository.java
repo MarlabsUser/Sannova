@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TemplateDetailsRepository extends JpaRepository<TemplateDetails,Integer> {
 
-    List<TemplateDetails> findByStatusAndStudyTypesId(Boolean status,Integer studyId);
+    List<TemplateDetails> findByStatusAndStudyTypesIdIn(Boolean status,List<Integer> studyId);
 
 }

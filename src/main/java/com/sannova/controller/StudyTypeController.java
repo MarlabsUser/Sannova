@@ -28,7 +28,7 @@ public class StudyTypeController {
     }
 
     @GetMapping(value = URL_TEMPLATE_DETAILS_BY_ID, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TemplateDetailsByStudyIdResponse>> getTemplateDetails(@PathVariable Integer study_id){
+    public ResponseEntity<List<TemplateDetailsByStudyIdResponse>> getTemplateDetails(@PathVariable List<Integer> study_id){
         return ResponseEntity.ok(studyType.getTemplateDetailsByStudyId(study_id));
     }
 
