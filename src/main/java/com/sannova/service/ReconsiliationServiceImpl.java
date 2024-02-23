@@ -84,11 +84,12 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
         Font wbFont = workbook.createFont();
         wbFont.setBold(true);
         wbStyleBold.setFont(wbFont);
-        wbStyleBold.setAlignment(HorizontalAlignment.CENTER);
+        wbStyleBold.setAlignment(HorizontalAlignment.LEFT);
+        wbStyleBold.setWrapText(true);
 
         CellStyle wrapTextStyle = workbook.createCellStyle();
         wrapTextStyle.setWrapText(true);
-        wrapTextStyle.setAlignment(HorizontalAlignment.CENTER);
+        wrapTextStyle.setAlignment(HorizontalAlignment.LEFT);
         //Wrapping text
 
         AtomicInteger rows = new AtomicInteger(0);
@@ -97,21 +98,27 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
         Cell c0 = row.createCell(0);
         c0.setCellStyle(wbStyleBold);
         c0.setCellValue("Study name");
+        sheet.setColumnWidth(0, 25 * 256);
         Cell c1 = row.createCell(1);
         c1.setCellStyle(wbStyleBold);
         c1.setCellValue("Form Title");
+        sheet.setColumnWidth(1, 25 * 256);
         Cell c2 = row.createCell(2);
         c2.setCellStyle(wbStyleBold);
         c2.setCellValue("Number of form printed");
+        sheet.setColumnWidth(2, 25 * 256);
         Cell c3 = row.createCell(3);
         c3.setCellStyle(wbStyleBold);
         c3.setCellValue("Printed by");
+        sheet.setColumnWidth(3, 25 * 256);
         Cell c4 = row.createCell(4);
         c4.setCellStyle(wbStyleBold);
+        sheet.setColumnWidth(4, 25 * 256);
         c4.setCellValue("Study number");
         Cell c5 = row.createCell(5);
         c5.setCellStyle(wbStyleBold);
         c5.setCellValue("Date");
+        sheet.setColumnWidth(5, 25 * 256);
 
         ByteArrayOutputStream fo = new ByteArrayOutputStream();
         for (ReconciliationResponseDto columnsDetails : request) {
