@@ -49,8 +49,8 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
 
             }
         }else if(FromDate!=null && ToDate != null){
-            LocalDateTime requestFromDate=LocalDate.parse(FromDate,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).atStartOfDay();
-            LocalDateTime requestToDate=LocalDate.parse(ToDate,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")).atStartOfDay();
+            LocalDate requestFromDate=LocalDate.parse(FromDate,DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate requestToDate=LocalDate.parse(ToDate,DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
             if(requestFromDate.getYear()==LocalDate.now().getYear()){
                 List<FormPrintDetails> formPrintDetails=formPrintRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(requestFromDate,requestToDate);

@@ -37,19 +37,19 @@ public class ReconciliationController {
         return ResponseEntity.ok(service.getReconsiliationDetails(request.getSerialNumber(),request.getFromDate(),request.getToDate()));
     }
 
-    @PostMapping(value = URL_RECONSILIATION_PRINT)
-    public ResponseEntity<Resource> printReconciliationDetails(@RequestBody List<ReconciliationResponseDto> request) throws IOException {
-        byte[] finalByte= service.printReconsiliationDetails(request);
-        ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(finalByte);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/zip"));
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-        String dateFormat=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachments; filename=Reconsiliation"+ dateFormat+".zip");
-        return new ResponseEntity(new InputStreamResource(byteArrayInputStream), headers, HttpStatus.OK);
-    }
+//    @PostMapping(value = URL_RECONSILIATION_PRINT)
+//    public ResponseEntity<Resource> printReconciliationDetails(@RequestBody List<ReconciliationResponseDto> request) throws IOException {
+//        byte[] finalByte= service.printReconsiliationDetails(request);
+//        ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(finalByte);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.parseMediaType("application/zip"));
+//        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+//        String dateFormat=LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"));
+//        headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachments; filename=Reconsiliation"+ dateFormat+".zip");
+//        return new ResponseEntity(new InputStreamResource(byteArrayInputStream), headers, HttpStatus.OK);
+//    }
 
-    @PostMapping(URL_RECONSILIATION_PRINT1)
+    @PostMapping(URL_RECONSILIATION_PRINT)
     public ResponseEntity<String> getAllReconciliationDetails(@RequestBody List<ReconciliationResponseDto> request) throws IOException {
         byte[] excelContent = service.getReconciliationDetailsDownload(request);
         ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(excelContent);

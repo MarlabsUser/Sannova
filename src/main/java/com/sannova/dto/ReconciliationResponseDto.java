@@ -28,7 +28,7 @@ public class ReconciliationResponseDto {
                 .formTitle(formPrintDetails.getTemplateDetails().getTemplateName())
                 .formPrinted(formPrintDetails.getNumberOfFormsCount())
                 .printedBy((formPrintDetails.getPrintBy()))
-                .dateAndTime(formPrintDetails.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
+                .dateAndTime(formPrintDetails.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy")))
                 .studyType(formPrintDetails.getStudyId().getStudyName())
                 .templateId(formPrintDetails.getTemplateDetails().getId())
                 .build();
@@ -40,7 +40,7 @@ public class ReconciliationResponseDto {
                 .formTitle(formPrintDetails.getTemplateDetails().getTemplateName())
                 .formPrinted(formPrintDetails.getNumberOfFormsCount())
                 .printedBy((formPrintDetails.getPrintBy()))
-                .dateAndTime(formPrintDetails.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")))
+                .dateAndTime(formPrintDetails.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy")))
                 .studyType(formPrintDetails.getStudyId().getStudyName())
                 .templateId(formPrintDetails.getTemplateDetails().getId())
                 .build();

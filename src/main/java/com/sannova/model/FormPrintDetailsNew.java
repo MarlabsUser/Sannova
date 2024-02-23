@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,7 +33,7 @@ public class FormPrintDetailsNew {
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private StudyTypes studyId;
