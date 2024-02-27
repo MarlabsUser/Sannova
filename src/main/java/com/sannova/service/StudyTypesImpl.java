@@ -50,8 +50,8 @@ public class StudyTypesImpl implements StudyType{
                         .uploadedBy("Admin")
                         .data(file.getBytes())
                         .templateType(file.getContentType())
-                        .studyTypes(studyType.get())
-                        .status(true)
+                        .studyTypes(studyType.get()).status(true)
+                        .SerialNumberPrefix(studyType.get().getStudyName().substring(0,2)+file.getOriginalFilename().substring(0,2))
                         .build());
 
             }

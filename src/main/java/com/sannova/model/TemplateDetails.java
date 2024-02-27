@@ -42,6 +42,9 @@ public class TemplateDetails {
     @Column(updatable = true, name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "serial_number_prefix")
+    private String SerialNumberPrefix;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "study_id")
     private StudyTypes studyTypes;
