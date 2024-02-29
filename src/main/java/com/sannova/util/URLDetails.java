@@ -16,6 +16,7 @@ public class URLDetails {
 
     public static final String URL_RECONSILIATION_PRINT1 = URL_BASE +"/reconsiliation/print1";
     public static final String URL_FORM_CONFIRMATION_DETAILS = URL_BASE +"/form_confirmation_details";
+    public static final String ID_GENERATOR_GENERATE=URL_BASE+"/id_generator/generate";
 
 
 

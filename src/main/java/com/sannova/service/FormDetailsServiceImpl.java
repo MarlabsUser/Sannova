@@ -1,8 +1,6 @@
 package com.sannova.service;
 
-import com.sannova.dto.FormConfirmationRequest;
-import com.sannova.dto.FromTemplateDetailsDto;
-import com.sannova.dto.ZipFormattedFiles;
+import com.sannova.dto.*;
 import com.sannova.model.FormPrintDetails;
 import com.sannova.model.StudyTypes;
 import com.sannova.model.TemplateDetails;
@@ -76,5 +74,17 @@ public class FormDetailsServiceImpl implements FormDetailsService{
       List<FormPrintDetails> formPrintDetails= formPrintRepository.saveAll(formPrintDetailsList);
       List<ZipFormattedFiles> zipFormattedFiles=formPrintDetails.stream().map(v->ZipConvert.formattedZipArrayOfFiles(v.getTemplateDetails().getTemplateName(), v.getTemplateDetails().getData())).collect(Collectors.toList());
       return ZipConvert.zipBytes(zipFormattedFiles);
+    }
+
+    @Override
+    public IdGeneratorResponse generateId(IdGeneratorResquest request) {
+        //Form_details:  find study id and template id
+        // if not present, starts from 0 to end.
+        // if present, get  new table reference and get  serial number last count and add then new count with it.
+        //response type
+
+
+        return  null;
+
     }
 }

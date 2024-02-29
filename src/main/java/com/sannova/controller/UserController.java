@@ -2,6 +2,7 @@ package com.sannova.controller;
 
 
 import com.sannova.dto.FormConfirmationRequest;
+import com.sannova.dto.IdGeneratorResquest;
 import com.sannova.service.FormDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -39,6 +40,12 @@ public class UserController {
         headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
         headers.set(HttpHeaders.CONTENT_DISPOSITION, "attachments; filename="+request.getStudyId()+".zip");
         return new ResponseEntity<Resource>(new InputStreamResource(byteArrayInputStream), headers, HttpStatus.OK);
+    }
+
+
+    @PostMapping(value = ID_GENERATOR_GENERATE, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity  generate(@RequestBody IdGeneratorResquest request){
+        return ResponseEntity.ok(formDetailsService.generateId(request));
     }
 
 
