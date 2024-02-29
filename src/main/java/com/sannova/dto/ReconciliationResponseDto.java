@@ -1,7 +1,7 @@
 package com.sannova.dto;
 
 import com.sannova.model.FormPrintDetails;
-import com.sannova.model.FormPrintDetailsNew;
+import com.sannova.model.FormPrintDetailsBackUp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class ReconciliationResponseDto {
                 .build();
     }
 
-    public static ReconciliationResponseDto build(FormPrintDetailsNew formPrintDetails){
+    public static ReconciliationResponseDto build(FormPrintDetailsBackUp formPrintDetails){
         return ReconciliationResponseDto.builder()
                 .studyNumber(formPrintDetails.getStudyName())
                 .formTitle(formPrintDetails.getTemplateDetails().getTemplateName())

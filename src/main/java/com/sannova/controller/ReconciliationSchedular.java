@@ -1,7 +1,7 @@
 package com.sannova.controller;
 
 import com.sannova.model.FormPrintDetails;
-import com.sannova.model.FormPrintDetailsNew;
+import com.sannova.model.FormPrintDetailsBackUp;
 import com.sannova.repository.FormPrintNewRepository;
 import com.sannova.repository.FormPrintRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,19 +21,19 @@ public class ReconciliationSchedular {
     @Scheduled(cron = "59 23 31 12 * *")
     public void archivalProcess() {
 
-    List<FormPrintDetailsNew> formPrintDetailsNewList= new ArrayList<>();
+    List<FormPrintDetailsBackUp> formPrintDetailsBackUpList = new ArrayList<>();
         List<FormPrintDetails> formPrintDetails=formPrintRepository.findAll();
         for( FormPrintDetails  formPrintDetails1:formPrintDetails){
-            FormPrintDetailsNew formPrintDetailsNew= new FormPrintDetailsNew();
-            formPrintDetailsNew.setPrintBy(formPrintDetails1.getPrintBy());
-            formPrintDetailsNew.setTemplateDetails(formPrintDetails1.getTemplateDetails());
-            formPrintDetailsNew.setCreatedAt(formPrintDetails1.getCreatedAt());
-            formPrintDetailsNew.setNumberOfFormsCount(formPrintDetails1.getNumberOfFormsCount());
-            formPrintDetailsNew.setStudyName(formPrintDetails1.getStudyName());
-            formPrintDetailsNew.setStudyId(formPrintDetails1.getStudyId());
-            formPrintDetailsNewList.add(formPrintDetailsNew);
+            FormPrintDetailsBackUp formPrintDetailsBackUp = new FormPrintDetailsBackUp();
+            formPrintDetailsBackUp.setPrintBy(formPrintDetails1.getPrintBy());
+            formPrintDetailsBackUp.setTemplateDetails(formPrintDetails1.getTemplateDetails());
+            formPrintDetailsBackUp.setCreatedAt(formPrintDetails1.getCreatedAt());
+            formPrintDetailsBackUp.setNumberOfFormsCount(formPrintDetails1.getNumberOfFormsCount());
+            formPrintDetailsBackUp.setStudyName(formPrintDetails1.getStudyName());
+            formPrintDetailsBackUp.setStudyId(formPrintDetails1.getStudyId());
+            formPrintDetailsBackUpList.add(formPrintDetailsBackUp);
         }
-        formPrintNewRepository.saveAll(formPrintDetailsNewList);
+        formPrintNewRepository.saveAll(formPrintDetailsBackUpList);
 
         formPrintRepository.deleteAll(formPrintDetails);
 

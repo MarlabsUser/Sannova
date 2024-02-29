@@ -1,5 +1,6 @@
 package com.sannova.service;
 
+import com.sannova.dto.ReconciliationRequestDto;
 import com.sannova.dto.ReconciliationResponseDto;
 
 import java.io.IOException;
@@ -13,4 +14,6 @@ public interface ReconciliationService {
 
 
     byte[] getReconciliationDetailsDownload(List<ReconciliationResponseDto> request) throws IOException;
+
+
 }

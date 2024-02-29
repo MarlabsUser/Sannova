@@ -2,11 +2,8 @@ package com.sannova.service;
 
 import com.sannova.dto.ReconciliationResponseDto;
 import com.sannova.dto.ZipFormattedFiles;
-import com.sannova.model.FormPrintDetails;
-import com.sannova.model.FormPrintDetailsNew;
-import com.sannova.repository.FormPrintNewRepository;
-import com.sannova.repository.FormPrintRepository;
-import com.sannova.repository.TemplateDetailsRepository;
+import com.sannova.model.*;
+import com.sannova.repository.*;
 import com.sannova.util.ZipConvert;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -15,14 +12,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -43,7 +36,7 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
             }else{
-                List<FormPrintDetailsNew> formPrintDetails= formPrintNewRepository.findByStudyName(serialNumber);
+                List<FormPrintDetailsBackUp> formPrintDetails= formPrintNewRepository.findByStudyName(serialNumber);
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
 
@@ -57,7 +50,7 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
             }else{
-                List<FormPrintDetailsNew> formPrintDetails=formPrintNewRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(requestFromDate,requestToDate);
+                List<FormPrintDetailsBackUp> formPrintDetails=formPrintNewRepository.findByCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(requestFromDate,requestToDate);
                 List<ReconciliationResponseDto> reconciliationResponseDtos=formPrintDetails.stream().map(ReconciliationResponseDto::build).collect(Collectors.toList());
                 return reconciliationResponseDtos;
             }
@@ -149,4 +142,6 @@ public class ReconsiliationServiceImpl implements ReconciliationService{
         fo.close();
         return fo.toByteArray();
     }
+
+
 }

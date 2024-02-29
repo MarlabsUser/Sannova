@@ -1,22 +1,18 @@
 package com.sannova.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "form_print_details")
 public class FormPrintDetails {
     @Id
@@ -42,5 +38,11 @@ public class FormPrintDetails {
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private TemplateDetails templateDetails;
+
+
+
+    @OneToMany(mappedBy = "formPrintDetails")
+    private List<SerialNumberCount> serialNumberCount;
+
     
 }
