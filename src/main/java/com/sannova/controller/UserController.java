@@ -2,6 +2,7 @@ package com.sannova.controller;
 
 
 import com.sannova.dto.FormConfirmationRequest;
+import com.sannova.dto.IdGeneratorResponse;
 import com.sannova.dto.IdGeneratorResquest;
 import com.sannova.service.FormDetailsService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.List;
 
 import static com.sannova.util.URLDetails.*;
 
@@ -31,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(formDetailsService.getStudyNumber(study_id));
     }
 
-    @PostMapping(value = URL_FORM_CONFIRMATION_DETAILS)
+    @PostMapping(value = URL_PRINT_FORM)
     public ResponseEntity<Resource> AddFormConfirmationDetails(@RequestBody FormConfirmationRequest request) throws IOException {
         byte[] finalByte= formDetailsService.addFormConfirmationDetails(request);
         ByteArrayInputStream byteArrayInputStream=new ByteArrayInputStream(finalByte);
@@ -44,9 +44,7 @@ public class UserController {
 
 
     @PostMapping(value = ID_GENERATOR_GENERATE, produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity  generate(@RequestBody IdGeneratorResquest request){
+    public ResponseEntity<IdGeneratorResponse>  generate(@RequestBody IdGeneratorResquest request){
         return ResponseEntity.ok(formDetailsService.generateId(request));
     }
-
-
 }

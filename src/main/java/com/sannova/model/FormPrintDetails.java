@@ -5,9 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -33,16 +31,12 @@ public class FormPrintDetails {
     @Column(updatable = false, name = "created_at")
     private LocalDate createdAt;
 
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    private StudyTypes studyId;
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    private StudyTypes studyTypes;
 
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     private TemplateDetails templateDetails;
-
-
 
     @OneToMany(mappedBy = "formPrintDetails")
     private List<SerialNumberCount> serialNumberCount;
-
-    
 }

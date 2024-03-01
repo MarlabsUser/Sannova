@@ -15,6 +15,17 @@ import java.util.List;
 public class FromTemplateDetailsDto {
     @JsonProperty(value = "templateId")
     private Integer templateId;
+    @JsonProperty(value = "template_name")
+    private String templateName;
     @JsonProperty(value = "formCount")
     private Integer formCount;
+    @JsonProperty(value = "first__serial_number")
+    private String firstSerialNumber;
+    @JsonProperty(value = "last_serial_number")
+    private String lastSerialNumber;
+    @JsonProperty(value = "Serial_number_list")
+    private List<String> SerialNumberList;
+    @JsonProperty(value = "starting_serial_number")
+    private Integer startingSerialNumber;
+
 }

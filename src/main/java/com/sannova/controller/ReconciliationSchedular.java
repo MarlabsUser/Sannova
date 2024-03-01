@@ -30,7 +30,7 @@ public class ReconciliationSchedular {
             formPrintDetailsBackUp.setCreatedAt(formPrintDetails1.getCreatedAt());
             formPrintDetailsBackUp.setNumberOfFormsCount(formPrintDetails1.getNumberOfFormsCount());
             formPrintDetailsBackUp.setStudyName(formPrintDetails1.getStudyName());
-            formPrintDetailsBackUp.setStudyId(formPrintDetails1.getStudyId());
+            formPrintDetailsBackUp.setStudyId(formPrintDetails1.getStudyTypes());
             formPrintDetailsBackUpList.add(formPrintDetailsBackUp);
         }
         formPrintNewRepository.saveAll(formPrintDetailsBackUpList);

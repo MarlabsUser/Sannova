@@ -21,7 +21,7 @@ public class FormConfirmationRequest {
  @JsonProperty(value = "studyId")
  private Integer studyId;
  @JsonProperty(value = "templateDetails")
- private List<FromTemplateDetailsDto> studyTypeDetailsId;
+ private List<FromTemplateDetailsDto> templateDetails;
  @JsonProperty(value = "username")
  private  String username;
 }

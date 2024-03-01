@@ -19,11 +19,13 @@ public class IdGeneratorTemplateDetailsResponse {
     private String templateName;
     @JsonProperty(value = "formCount")
     private Integer formCount;
-    @JsonProperty(value = "first_number")
-    private String firstNumber;
-    @JsonProperty(value = "last_number")
-    private String lastNumber;
+    @JsonProperty(value = "first_serial_number")
+    private String firstSerialNumber;
+    @JsonProperty(value = "last_serial_number")
+    private String lastSerialNumber;
     @JsonProperty(value = "Serial_number_list")
     private List<String> SerialNumberList;
+    @JsonProperty(value = "starting_serial_number")
+    private Integer startingSerialNumber;
 
 }

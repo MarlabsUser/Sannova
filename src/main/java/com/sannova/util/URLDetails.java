@@ -13,9 +13,7 @@ public class URLDetails {
     public static final String URL_DELETE_TEMPLATE_BY_TEMPLATE_ID=URL_BASE+"/delete_template";
     public static final String URL_RECONSILIATION = URL_BASE +"/reconsiliation";
     public static final String URL_RECONSILIATION_PRINT = URL_BASE +"/reconsiliation/print";
-
-    public static final String URL_RECONSILIATION_PRINT1 = URL_BASE +"/reconsiliation/print1";
-    public static final String URL_FORM_CONFIRMATION_DETAILS = URL_BASE +"/form_confirmation_details";
+    public static final String URL_PRINT_FORM = URL_BASE +"/print_form";
     public static final String ID_GENERATOR_GENERATE=URL_BASE+"/id_generator/generate";
 
 

@@ -29,7 +29,7 @@ public class ReconciliationResponseDto {
                 .formPrinted(formPrintDetails.getNumberOfFormsCount())
                 .printedBy((formPrintDetails.getPrintBy()))
                 .dateAndTime(formPrintDetails.getCreatedAt().format(DateTimeFormatter.ofPattern("dd MMM yyyy")))
-                .studyType(formPrintDetails.getStudyId().getStudyName())
+                .studyType(formPrintDetails.getStudyTypes().getStudyName())
                 .templateId(formPrintDetails.getTemplateDetails().getId())
                 .build();
     }
