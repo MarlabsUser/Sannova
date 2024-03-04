@@ -32,7 +32,7 @@ public class WordOperationUtils {
                 if(templateDetails.getTemplateName().substring(templateDetails.getTemplateName().lastIndexOf(".") + 1).equals("docx")){
                     zipFormattedFiles.setFileName(serialDetails.getFormPrintDetails().getTemplateDetails().getTemplateName()+"/"+serialDetails.getSerialNumber()+".docx");
                 }else{
-                    zipFormattedFiles.setFileName(serialDetails.getFormPrintDetails().getTemplateDetails().getTemplateName()+"/"+serialDetails.getSerialNumber());
+                    zipFormattedFiles.setFileName(serialDetails.getFormPrintDetails().getTemplateDetails().getTemplateName()+"/"+serialDetails.getSerialNumber()+".pdf");
                 }
                 return zipFormattedFiles;
             }catch (Exception e){
